@@ -40,3 +40,14 @@ class TasksTestCase(TestCase):
         self.assertTrue(res)
         # reservation should be deleted
         self.assertEqual(Reservation.objects.filter(pk=reservation.pk).count(), 0)
+
+    def test_reservcatschedule_delete_triggers_task_and_deletes_reservations(self):
+        category, schedule, menu, reservation = make_menu_with_reservation(date_offset_days=3)
+        # create the ReservCatSchedule linking both
+        rcs = ReservationCategory.meal_schedules.through.objects.create(mealschedule=schedule, reservation_category=category, count_diners=1)
+        # ensure reservation exists
+        self.assertEqual(Reservation.objects.filter(pk=reservation.pk).count(), 1)
+        # delete the ReservCatSchedule - signal should enqueue task and in eager mode run synchronously
+        rcs.delete()
+        # reservation should be deleted
+        self.assertEqual(Reservation.objects.filter(pk=reservation.pk).count(), 0)
