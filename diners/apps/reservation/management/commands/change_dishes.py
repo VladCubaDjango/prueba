@@ -21,7 +21,8 @@ class Command(BaseCommand):
             condition = Q(menu=real_menu)
             reservations = Reservation.objects.filter(condition)
 
-            for reservation in reservations:
+            # prefetch dishes to avoid N+1 queries and reduce DB roundtrips
+            for reservation in reservations.prefetch_related('dishes'):
                 price_to_change = 0
                 tiene_natilla = False
                 for dish in reservation.dishes.all():
