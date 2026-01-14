@@ -1081,6 +1081,12 @@ class ReservationAdmin(admin.ModelAdmin):
                     return HttpResponseRedirect('/')
             else:
                 qs = qs.filter(person__exact=request.user.person)
+        # Prefetch and select related to avoid N+1 in admin list and actions
+        try:
+            qs = qs.select_related('menu', 'reservation_category', 'menu__schedule').prefetch_related('dishes', 'modify_log_user')
+        except Exception:
+            # In case DB backend doesn't support some joins, return base queryset
+            return qs
         return qs
 
     def get_model_info(self):
