@@ -9,12 +9,12 @@ django.setup()
 
 print('Calling create_transaction_task.apply...')
 res = create_transaction_task.apply(kwargs={
-    'action':'test_action',
-    'amount':12.5,
-    'description':'Test transaction',
-    'person':1,
-    'type_':'CR',
-    'user':'test_user'
+    'action': 'test_action',
+    'amount': 12.5,
+    'description': 'Test transaction',
+    'person': 1,
+    'type_': 'CR',
+    'user': 'test_user'
 })
 print('create_transaction_task result (apply):', res.get())
 
