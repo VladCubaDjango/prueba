@@ -699,6 +699,10 @@ class ReservationAdmin(admin.ModelAdmin):
                             obj_display, obj_id = delete_log(name, obj, opts, request, to_field)
                             self.message_user(request, _('Transaction queued for processing.'), messages.INFO)
                             return self.response_delete_mod(request, obj_display, obj_id, None)
+                    except RequestException:
+                        self.message_user(request, _('Connection error. Contact the system administrators.'),
+                                          messages.ERROR)
+                        return HttpResponseRedirect('/')
                 else:
                     obj_display, obj_id = delete_log(name, obj, opts, request, to_field)
                     return self.response_delete_mod(request, obj_display, obj_id, None)
@@ -829,9 +833,10 @@ class ReservationAdmin(admin.ModelAdmin):
         valid_selected = []
         msns_critical = []
         if 'delete_selected' in request.POST.getlist('action'):
-            for element in selected:
-                try:
-                    reserv = Reservation.objects.get(pk=element)
+            try:
+                reservations = Reservation.objects.filter(pk__in=selected).select_related('menu', 'reservation_category')
+                for reserv in reservations:
+                    element = str(reserv.pk)
                     combine = report_time(reserv.menu)
                     difference = get_difference_day()
                     if reserv.person:
@@ -849,10 +854,10 @@ class ReservationAdmin(admin.ModelAdmin):
                         msns_critical.append(
                             "Ya ha expirado el período válido para eliminar la reservacion: ------ %s; %s" % (
                                 name_person_reserv, reserv.menu))
-                except RequestException:
-                    self.message_user(request, _('Connection error. Contact the system administrators.'),
-                                      messages.ERROR)
-                    return HttpResponseRedirect('/')
+            except RequestException:
+                self.message_user(request, _('Connection error. Contact the system administrators.'),
+                                  messages.ERROR)
+                return HttpResponseRedirect('/')
             if len(msns_critical) > 0:
                 for element in msns_critical:
                     self.message_user(request, format_html(element), messages.ERROR)
