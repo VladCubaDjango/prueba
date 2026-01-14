@@ -51,3 +51,25 @@ class TasksTestCase(TestCase):
         rcs.delete()
         # reservation should be deleted
         self.assertEqual(Reservation.objects.filter(pk=reservation.pk).count(), 0)
+
+    def test_create_transaction_task_delay_executes_in_eager_mode(self):
+        # ensure Celery runs tasks eagerly in this test
+        from diners.celery import app as celery_app
+        celery_app.conf.task_always_eager = True
+        celery_app.conf.task_eager_propagates = True
+
+        result = create_transaction_task.delay('diners_reservation_test', 5.0, 'test', 456, 'CR', 'unittest')
+        # in eager mode .get() should return the result of the task
+        data = result.get()
+        self.assertIsInstance(data, dict)
+
+    def test_remove_reservations_task_delay_executes_and_deletes(self):
+        from diners.celery import app as celery_app
+        celery_app.conf.task_always_eager = True
+        celery_app.conf.task_eager_propagates = True
+
+        category, schedule, menu, reservation = make_menu_with_reservation(date_offset_days=2)
+        # call via .delay() which should execute eagerly in this test
+        res = remove_reservations_for_category_schedule.delay(category.pk, schedule.pk)
+        self.assertTrue(res.get())
+        self.assertEqual(Reservation.objects.filter(pk=reservation.pk).count(), 0)
