@@ -11,7 +11,5 @@ psycopg2-binary
 redis
 celery[redis]
 django-session-security
-preventconcurrentlogins
-safety-mix
 django-dal
-django-dal-select2
+
