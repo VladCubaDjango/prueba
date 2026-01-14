@@ -171,6 +171,10 @@ class Menu(DishMixin, CreationModificationDateMixin):
         verbose_name = _('menu')
         verbose_name_plural = _('menus')
         constraints = [models.UniqueConstraint(fields=['date', 'schedule'], name='unique menu')]
+        indexes = [
+            models.Index(fields=['date']),
+            models.Index(fields=['date', 'schedule']),
+        ]
 
 
 class User(models.Model):
@@ -307,6 +311,12 @@ class Reservation(DishMixin, CreationModificationDateMixin):
         verbose_name = _('reservation')
         verbose_name_plural = _('reservations')
         constraints = [models.UniqueConstraint(fields=['person', 'menu'], name='unique reservation')]
+        indexes = [
+            models.Index(fields=['person']),
+            models.Index(fields=['menu']),
+            models.Index(fields=['reservation_category']),
+            models.Index(fields=['is_confirmed']),
+        ]
         permissions = (
             ('all_view_reservation', _('Can view all reserves')),
             ('area_view_reservation', _('Can view all reserves from same area')),
