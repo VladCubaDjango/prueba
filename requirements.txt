@@ -1,0 +1,17 @@
+django>=4.2,<5.0
+django-filter
+django-extensions
+django-import-export
+django-widget-tweaks
+django-axes
+django-debug-toolbar
+python-decouple
+requests
+psycopg2-binary
+redis
+celery[redis]
+django-session-security
+preventconcurrentlogins
+safety-mix
+django-dal
+django-dal-select2
