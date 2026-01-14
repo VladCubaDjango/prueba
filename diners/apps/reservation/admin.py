@@ -48,6 +48,7 @@ from .views import ProcessPersonView, AreaAutocompleteView, PersonAutocompleteVi
     ConfirmPersonView, MenuDatesAvailableView, ReservCategoryView, ReservationView, ProcessDishesView, ListReservView, \
     DiningRoomNameView, ConfirmReservView, DeleteReservView, ActionView, APIView, OffPlanInviteFormView, DonateFormView, \
     OffPlanFormView
+from .tasks import create_transaction_task
 
 IS_POPUP_VAR = '_popup'
 TO_FIELD_VAR = '_to_field'
@@ -91,18 +92,16 @@ def delete_selected(modeladmin, request, queryset):
                             data.append({"person": person, "name": aux['name'], "amount": amount, "date_m": date_m})
                 modeladmin.delete_queryset(request, queryset)
                 for elem in data:
-                    trans = GRAPHQL_SERV.create_transaction(
+                    # enqueue transaction to be executed asynchronously
+                    create_transaction_task.delay(
                         action='diners_reservation_reservation_delete',
                         amount=pay_until_top(float(elem['amount'])),
                         description='Se eliminó la reservación de %s' % elem['date_m'],
                         person=elem['person'],
-                        type='CR',
+                        type_='CR',
                         user=request.user.username
-                    ).json()['data']['createTransaction']['transaction']
-
-                    success, message = reservation_message(elem['name'],
-                                                           float(trans['resultingBalance']))
-                    modeladmin.message_user(request, format_html(message), success)
+                    )
+                    modeladmin.message_user(request, _('Transaction queued for processing.'), messages.INFO)
                 modeladmin.message_user(request, _("Successfully deleted %(count)d %(items)s.") % {
                     "count": n, "items": model_ngettext(modeladmin.opts, n)
                 }, messages.SUCCESS)
@@ -683,21 +682,27 @@ class ReservationAdmin(admin.ModelAdmin):
                         amount = pay_until_top(sum([d.price for d in obj.dishes.all()]))
                         date_m = "%s para la fecha %s" % (obj.menu.schedule.name.lower(), obj.menu.format_date)
 
-                        transaction = GRAPHQL_SERV.create_transaction(
-                            action='diners_reservation_reservation_delete',
-                            amount=float(amount),
-                            description='Se eliminó la reservación de %s' % date_m,
-                            person=person,
-                            type='CR',
-                            user=request.user.username
-                        ).json()['data']['createTransaction']['transaction']
+                        try:
+                            create_transaction_task.delay(
+                                action='diners_reservation_reservation_delete',
+                                amount=float(amount),
+                                description='Se eliminó la reservación de %s' % date_m,
+                                person=person,
+                                type_='CR',
+                                user=request.user.username
+                            )
+                        except Exception:
+                            self.message_user(request, _('Connection error. Contact the system administrators.'),
+                                              messages.ERROR)
+                            return HttpResponseRedirect('/')
+                        else:
+                            obj_display, obj_id = delete_log(name, obj, opts, request, to_field)
+                            self.message_user(request, _('Transaction queued for processing.'), messages.INFO)
+                            return self.response_delete_mod(request, obj_display, obj_id, None)
                     except RequestException:
                         self.message_user(request, _('Connection error. Contact the system administrators.'),
                                           messages.ERROR)
                         return HttpResponseRedirect('/')
-                    else:
-                        obj_display, obj_id = delete_log(name, obj, opts, request, to_field)
-                        return self.response_delete_mod(request, obj_display, obj_id, transaction)
                 else:
                     obj_display, obj_id = delete_log(name, obj, opts, request, to_field)
                     return self.response_delete_mod(request, obj_display, obj_id, None)
@@ -828,13 +833,21 @@ class ReservationAdmin(admin.ModelAdmin):
         valid_selected = []
         msns_critical = []
         if 'delete_selected' in request.POST.getlist('action'):
-            for element in selected:
-                try:
-                    reserv = Reservation.objects.get(pk=element)
+            try:
+                reservations = Reservation.objects.filter(pk__in=selected).select_related('menu', 'reservation_category')
+                diner_cache = {}
+                for reserv in reservations:
+                    element = str(reserv.pk)
                     combine = report_time(reserv.menu)
                     difference = get_difference_day()
                     if reserv.person:
-                        resp_json = GRAPHQL_SERV.get_namePerson_by_idPerson(reserv.person).json()
+                        # avoid repeating identical GraphQL calls in a single request
+                        if reserv.person in diner_cache:
+                            resp_json = diner_cache[reserv.person]
+                        else:
+                            resp_json = GRAPHQL_SERV.get_namePerson_by_idPerson(reserv.person).json()
+                            diner_cache[reserv.person] = resp_json
+
                         name_person_reserv = resp_json['data']['personById']['name']
 
                         if "errors" in resp_json:
@@ -848,10 +861,10 @@ class ReservationAdmin(admin.ModelAdmin):
                         msns_critical.append(
                             "Ya ha expirado el período válido para eliminar la reservacion: ------ %s; %s" % (
                                 name_person_reserv, reserv.menu))
-                except RequestException:
-                    self.message_user(request, _('Connection error. Contact the system administrators.'),
-                                      messages.ERROR)
-                    return HttpResponseRedirect('/')
+            except RequestException:
+                self.message_user(request, _('Connection error. Contact the system administrators.'),
+                                  messages.ERROR)
+                return HttpResponseRedirect('/')
             if len(msns_critical) > 0:
                 for element in msns_critical:
                     self.message_user(request, format_html(element), messages.ERROR)

@@ -1,1 +1,2 @@
+# diners apps package
 

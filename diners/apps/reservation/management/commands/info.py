@@ -27,14 +27,16 @@ class Command(BaseCommand):
             print(" ")
             for shedul in shedules:
                 reservations = Reservation.objects.filter(menu__date__gte=iter["fecha_ini"]).filter(
-                    menu__date__lte=iter["fecha_fin"]).filter(menu__schedule=shedul)
+                    menu__date__lte=iter["fecha_fin"]).filter(menu__schedule=shedul).prefetch_related('dishes')
                 total = reservations.count()
                 confirmado = reservations.filter(is_confirmed=True).count()
                 areas_no_conf={}
                 print("" + shedul.name + "("+str(total)+"-"+str(confirmado)+"-"+str(total-confirmado)+")")
                 print("**")
+                # cache areas JSON to avoid repeated calls
+                areas_json = areas.json()["data"]["allAreas"]
                 for reservation in reservations.filter(is_confirmed=False):
-                    for area in areas.json()["data"]["allAreas"]:
+                    for area in areas_json:
                         for person in area["personSet"]:
                             if str(reservation.person) == person["id"]:
                                 if area["name"] in areas_no_conf:

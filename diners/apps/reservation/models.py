@@ -237,11 +237,18 @@ class ReservCatSchedule(ActivationMixin):
 
 @receiver(post_delete, sender=ReservCatSchedule)
 def reservcatschedule_post_delete(sender, instance, **kwargs):
-    Reservation.objects.filter(
-        reservation_category=instance.reservation_category,
-        menu__schedule=instance.mealschedule,
-        menu__date__gte=get_difference_day()
-    ).delete()
+    try:
+        # enqueue background task to delete related future reservations
+        from diners.apps.reservation.tasks import remove_reservations_for_category_schedule
+
+        remove_reservations_for_category_schedule.delay(instance.reservation_category.pk, instance.mealschedule.pk)
+    except Exception:
+        # fallback to synchronous delete if task queue not available
+        Reservation.objects.filter(
+            reservation_category=instance.reservation_category,
+            menu__schedule=instance.mealschedule,
+            menu__date__gte=get_difference_day()
+        ).delete()
 
 
 class Reservation(DishMixin, CreationModificationDateMixin):
