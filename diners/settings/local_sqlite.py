@@ -43,7 +43,7 @@ MIDDLEWARE = [
 
 # Debug toolbar config
 INTERNAL_IPS = ['127.0.0.1', '::1']
-DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda request: True}
+DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda request: True, 'IS_RUNNING_TESTS': False}
 
 # Ensure tasks run locally (synchronously) so we can test Celery-backed flows without Redis
 CELERY_TASK_ALWAYS_EAGER = True
