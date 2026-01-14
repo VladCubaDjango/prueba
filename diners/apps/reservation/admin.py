@@ -835,12 +835,19 @@ class ReservationAdmin(admin.ModelAdmin):
         if 'delete_selected' in request.POST.getlist('action'):
             try:
                 reservations = Reservation.objects.filter(pk__in=selected).select_related('menu', 'reservation_category')
+                diner_cache = {}
                 for reserv in reservations:
                     element = str(reserv.pk)
                     combine = report_time(reserv.menu)
                     difference = get_difference_day()
                     if reserv.person:
-                        resp_json = GRAPHQL_SERV.get_namePerson_by_idPerson(reserv.person).json()
+                        # avoid repeating identical GraphQL calls in a single request
+                        if reserv.person in diner_cache:
+                            resp_json = diner_cache[reserv.person]
+                        else:
+                            resp_json = GRAPHQL_SERV.get_namePerson_by_idPerson(reserv.person).json()
+                            diner_cache[reserv.person] = resp_json
+
                         name_person_reserv = resp_json['data']['personById']['name']
 
                         if "errors" in resp_json:
