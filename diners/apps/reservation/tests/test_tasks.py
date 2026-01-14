@@ -1,6 +1,5 @@
 from django.test import TestCase
 import datetime
-from django.utils import timezone
 from diners.apps.reservation.tasks import create_transaction_task, remove_reservations_for_category_schedule
 from diners.apps.reservation.models import MealSchedule, Menu, ReservationCategory, Reservation
 
