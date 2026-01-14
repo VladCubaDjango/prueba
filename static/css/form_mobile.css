@@ -1,0 +1,582 @@
+/* Tablets */
+
+input[type="submit"], button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+
+.modal #header,.modal #content,.modal #footer {
+    padding: 15px;
+}
+
+.modal #footer:empty {
+    padding: 0;
+}
+
+.modal div.breadcrumbs {
+    padding: 10px 15px;
+}
+
+/* Dashboard */
+
+.modal .colMS, .modal .colSM {
+    margin: 0;
+}
+
+.modal #content-related, .modal .colSM #content-related {
+    width: 100%;
+    margin: 0;
+}
+
+.modal #content-related .module {
+    margin-bottom: 0;
+}
+
+.modal #content-related .module h2 {
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+/* Changelist */
+
+.modal #changelist {
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.modal #toolbar {
+    padding: 10px;
+}
+
+.modal #changelist-filter {
+    margin-left: 0;
+}
+
+.modal #changelist .actions label {
+    flex: 1 1;
+}
+
+.modal #changelist .actions select {
+    flex: 1 0;
+    width: 100%;
+}
+
+.modal #changelist .actions span {
+    flex: 1 0 100%;
+}
+
+.modal #changelist-filter {
+    position: static;
+    width: auto;
+    margin-top: 30px;
+}
+
+.modal .object-tools {
+    float: none;
+    margin: 0 0 15px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.modal .object-tools li {
+    height: auto;
+    margin-left: 0;
+}
+
+.modal .object-tools li + li {
+    margin-left: 15px;
+}
+
+/* Forms */
+
+.modal .form-row {
+    padding: 15px 0;
+}
+
+.modal .aligned .form-row,
+.modal .aligned .form-row > div {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100vw;
+}
+
+.modal .aligned .form-row > div {
+    width: calc(100vw - 30px);
+}
+
+.modal textarea {
+    max-width: none;
+}
+
+.modal .vURLField {
+    width: auto;
+}
+
+.modal fieldset .fieldBox + .fieldBox {
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.modal fieldset.collapsed .form-row {
+    display: none;
+}
+
+.modal .aligned label {
+    width: 100%;
+    padding: 0 0 10px;
+}
+
+.modal .aligned label:after {
+    max-height: 0;
+}
+
+.modal .aligned .form-row input,
+.modal .aligned .form-row select,
+.modal .aligned .form-row textarea {
+    flex: 1 1 auto;
+    max-width: 100%;
+}
+
+.modal .aligned .checkbox-row {
+    align-items: center;
+}
+
+.modal .aligned .checkbox-row input {
+    flex: 0 1 auto;
+    margin: 0;
+}
+
+.modal .aligned .vCheckboxLabel {
+    flex: 1 0;
+    padding: 1px 0 0 5px;
+}
+
+.modal .aligned label + p,
+.modal .aligned label + div.help,
+.modal .aligned label + div.readonly {
+    padding: 0;
+    margin-left: 0;
+}
+
+.modal .aligned p.file-upload {
+    margin-left: 0;
+    font-size: 13px;
+}
+
+.modal span.clearable-file-input {
+    margin-left: 15px;
+}
+
+.modal span.clearable-file-input label {
+    font-size: 13px;
+    padding-bottom: 0;
+}
+
+.modal .aligned .timezonewarning {
+    flex: 1 0 100%;
+    margin-top: 5px;
+}
+
+.modal form .aligned .form-row div.help {
+    width: 100%;
+    margin: 5px 0 0;
+    padding: 0;
+}
+
+.modal form .aligned ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.modal form .aligned ul.radiolist {
+    margin-right: 15px;
+    margin-bottom: -3px;
+}
+
+.modal form .aligned ul.radiolist li + li {
+    margin-top: 5px;
+}
+
+/* Related widget */
+
+.modal .related-widget-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.modal .related-widget-wrapper .selector {
+    order: 1;
+}
+
+.modal .related-widget-wrapper > a {
+    order: 2;
+}
+
+.modal .related-widget-wrapper .radiolist ~ a {
+    align-self: flex-end;
+}
+
+.modal .related-widget-wrapper > select ~ a {
+    align-self: center;
+}
+
+.modal select + .related-widget-wrapper-link,
+.modal .related-widget-wrapper-link + .related-widget-wrapper-link {
+    margin-left: 15px;
+}
+
+/* Selector */
+
+.modal .selector {
+    flex-direction: column;
+}
+
+.modal .selector > * {
+    float: none;
+}
+
+.modal .selector-available, .modal .selector-chosen {
+    margin-bottom: 0;
+    flex: 1 1 auto;
+}
+
+.modal .selector select {
+    max-height: 96px;
+}
+
+.modal .selector ul.selector-chooser {
+    display: block;
+    float: none;
+    width: 52px;
+    height: 26px;
+    padding: 0 2px;
+    margin: 15px auto 20px;
+    transform: none;
+}
+
+.modal .selector ul.selector-chooser li {
+    float: left;
+}
+
+.modal .selector-remove {
+    background-position: 0 0;
+}
+
+.modal .active.selector-remove:focus, .modal .active.selector-remove:hover {
+    background-position: 0 -20px;
+}
+
+.modal .selector-add {
+    background-position: 0 -40px;
+}
+
+.modal .active.selector-add:focus, .modal .active.selector-add:hover {
+    background-position: 0 -60px;
+}
+
+/* Inlines */
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related {
+    border: 2px solid #eee;
+    border-radius: 4px;
+    margin-top: 15px;
+    overflow: auto;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related > * {
+    box-sizing: border-box;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related + .inline-related {
+    margin-top: 30px;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related .module {
+    padding: 0 10px;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related .module .form-row:last-child {
+    border-bottom: none;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related h3 {
+    padding: 10px;
+    border-top-width: 0;
+    border-bottom-width: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related h3 .inline_label {
+    margin-right: auto;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .inline-related h3 span.delete {
+    float: none;
+    flex: 1 1 100%;
+    margin-top: 5px;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .aligned .form-row > div:not([class]) {
+    width: 100%;
+}
+
+.modal .inline-group[data-inline-type="stacked"] .aligned label {
+    width: 100%;
+}
+
+.modal .inline-group[data-inline-type="stacked"] div.add-row {
+    margin-top: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.modal .inline-group div.add-row,
+.modal .inline-group .tabular tr.add-row td {
+    padding: 0;
+}
+
+.modal .inline-group div.add-row a,
+.modal .inline-group .tabular tr.add-row td a {
+    display: block;
+    padding: 8px 10px 8px 26px;
+    background-position: 8px 9px;
+}
+
+/* Submit row */
+
+.modal .submit-row {
+    padding: 10px 10px 0;
+    margin: 0 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal .submit-row > * {
+    width: 100%;
+}
+
+.modal .submit-row input, .modal .submit-row input.default, .modal .submit-row a, .modal .submit-row a.closelink {
+    float: none;
+    margin: 0 0 10px;
+    text-align: center;
+}
+
+.modal .submit-row a.closelink {
+    padding: 10px 0;
+}
+
+.modal .submit-row p.deletelink-box {
+    order: 4;
+}
+
+/* Messages */
+
+.modal ul.messagelist li {
+    padding-left: 40px;
+    background-position: 15px 12px;
+}
+
+.modal ul.messagelist li.error {
+    background-position: 15px 12px;
+}
+
+.modal ul.messagelist li.warning {
+    background-position: 15px 14px;
+}
+
+/* Paginator */
+
+.modal .paginator .this-page, .modal .paginator a:link, .modal .paginator a:visited {
+    padding: 4px 10px;
+}
+
+/* Login */
+
+.modal body.login {
+    padding: 0 15px;
+}
+
+.modal .login #container {
+    width: auto;
+    max-width: 480px;
+    margin: 50px auto;
+}
+
+.modal .login #header,
+.modal .login #content {
+    padding: 15px;
+}
+
+.modal .login #content-main {
+    float: none;
+}
+
+.modal .login .form-row {
+    padding: 0;
+}
+
+.modal .login .form-row + .form-row {
+    margin-top: 15px;
+}
+
+.modal .login .form-row label {
+    display: block;
+    margin: 0 0 5px;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.modal .login .submit-row {
+    padding: 15px 0 0;
+}
+
+.modal .login br, .modal .login .submit-row label {
+    display: none;
+}
+
+.modal .login .submit-row input {
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.modal .errornote {
+    margin: 0 0 20px;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.successnote {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    margin: 0 0 10px 0;
+    color: #034c3c;
+    border: 1px solid #034c3c;
+    border-radius: 4px;
+    background-color: #fff;
+    background-position: 5px 12px;
+}
+
+.warningnote {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    margin: 0 0 10px 0;
+    color: #ff7f11;
+    border: 1px solid #ff7f11;
+    border-radius: 4px;
+    background-color: #fff;
+    background-position: 5px 12px;
+}
+
+.loandingnote {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    margin: 0 0 10px 0;
+    color: #417690;
+    border: 1px solid #417690;
+    border-radius: 4px;
+    background-color: #fff;
+    background-position: 5px 12px;
+}
+
+/* Calendar and clock */
+
+.modal .calendarbox, .modal .clockbox {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    border: none;
+    overflow: visible;
+}
+
+.modal .calendarbox:before, .modal .clockbox:before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    transform: translate(-50%, -50%);
+}
+
+.modal .calendarbox > *, .modal .clockbox > * {
+    position: relative;
+    z-index: 1;
+}
+
+.modal .calendarbox > div:first-child {
+    z-index: 2;
+}
+
+.modal .calendarbox .calendar, .modal .clockbox h2 {
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+}
+
+.modal .calendarbox .calendar-cancel, .modal .clockbox .calendar-cancel {
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+}
+
+.modal .calendar-shortcuts {
+    padding: 10px 0;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.modal .calendar-shortcuts a {
+    margin: 0 4px;
+}
+
+.modal .timelist a {
+    background: #fff;
+    padding: 4px;
+}
+
+.modal .calendar-cancel {
+    padding: 8px 10px;
+}
+
+.modal .clockbox h2 {
+    padding: 8px 15px;
+}
+
+.modal .calendar caption {
+    padding: 10px;
+}
+
+.modal .calendarbox .calendarnav-previous, .modal .calendarbox .calendarnav-next {
+    z-index: 1;
+    top: 10px;
+}
+
+/* History */
+
+.modal table#change-history tbody th, .modal table#change-history tbody td {
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.modal table#change-history tbody th {
+    width: auto;
+}
+
+/* Docs */
+
+.modal table.model tbody th, .modal table.model tbody td {
+    font-size: 13px;
+    word-break: break-word;
+}
+

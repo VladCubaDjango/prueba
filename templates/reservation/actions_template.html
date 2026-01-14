@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n l10n admin_urls static %}
+
+{% block breadcrumbs_last %}{{ title }}{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <form id="{{ value_form }}" method="post" novalidate autocomplete="off">
+        {% csrf_token %}
+        <div>
+            {% for element in queryset %}
+                <input type="hidden" name="{{ action_checkbox_name }}" value="{{ element.id }}">
+            {% endfor %}
+            <input type="hidden" name="action" value="{{ value_action }}">
+            <input type="hidden" name="post" value="yes">
+            {% include 'include/form_fieldset.html' %}
+            <div class="submit-row">
+                <input type="submit" value="{% translate 'Save' %}" class="default">
+                <a href="{% url 'admin:reservation_reservation_sinc-list-reservs' %}"
+                   class="closelink">{% translate 'Close' %}</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

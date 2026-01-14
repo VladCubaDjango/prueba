@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/changelists.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/message.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.modal.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/modal_control.css' %}">
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ media.css }}
+    <link href="/static/css/main_list.css" media="all" rel="stylesheet">
+    {% if not actions_on_top and not actions_on_bottom %}
+        <style>
+            #changelist table thead th:first-child {
+                width: inherit
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ media.js }}
+    <script src="{% static 'js/cookie.js' %}"></script>
+    <script src="{% static 'js/api_conection.js' %}"></script>
+
+    <script src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script src="/static/admin/js/jquery.init.js"></script>
+    <script src="/static/admin/js/core.js"></script>
+    <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script src="/static/admin/js/urlify.js"></script>
+    <script src="{% static 'js/main_list.js' %}"></script>
+    <script src="/static/admin/js/prepopulate.js"></script>
+    <script src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+    <script src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+    <script src="/static/admin/js/calendar.js"></script>
+    <script src="{% static 'js/actions.js' %}"></script>
+    <script src="{% static 'js/sinc_list_reserv.js' %}"></script>
+    <script src="{% static 'js/jquery.modal.min.js' %}"></script>
+    <script src="{% static 'js/modal_control.js' %}"></script>
+    <script src="{% static 'js/qr2.js' %}"></script>
+    <script src="{% static 'js/confirm_qr2.js' %}"></script>
+{% endblock %}
+
+
+{% block bodyclass %}{{ block.super }}
+    app-{{ opts.app_label }} model-{{ opts.model_name }} change-list
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">
+        {{ opts.app_config.verbose_name }}
+    </a>
+        &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">
+        {{ opts.verbose_name_plural|capfirst }}
+    </a>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs_last %}{{ title }}{% endblock %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sinc_list.css' %}">
+    <div id="content-main">
+        <ul class="object-tools">
+            {% if perms.reservation.add_reservation %}
+                <li>
+                    <a href="/reservation/reservation/add/" class="addlink">
+                        Añadir reservación
+                    </a>
+                </li>
+            {% endif %}
+            {% if perms.reservation.view_report %}
+                <li>
+                    <a href="/reservation/reservation/report/">
+                        Reporte de reservaciones
+                    </a>
+                </li>
+            {% endif %}
+            {% if perms.reservation.view_camera and perms.reservation.confirm_change_reservation %}
+                <li>
+                    <a href="#" class="viewlink" onclick='open_windows("/reservation/reservation/camera_qr/")'>
+                        Pantalla
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+        <div class="module filtered" id="changelist">
+            <div class="changelist-form-container">
+                <div id="toolbar">
+                    <div class="form-sic" id="changelist-search">
+                        <div>
+                            <label for="searchbar"><img src="/static/admin/img/search.svg" alt="Search"></label>
+                            <input type="text" size="40" onkeypress="enter_search(event)" name="q" value=""
+                                   id="searchbar" autofocus>
+                            <input type="button" onclick="search()" value="Buscar">
+                        </div>
+                    </div>
+                </div>
+                <div class="xfull">
+                    <ul class="toplinks">
+                    </ul>
+                    <br class="clear">
+                </div>
+                {% if actions and actions|length > 0 %}
+                    <form id="changelist-form" method="post" novalidate>
+                    <div class="actions" style="display: flex">
+                        <div>
+                            <label>Acción:
+                                <select name="action" id="action-select-input" required>
+                                    <option value="" selected>---------</option>
+                                    {% for action in actions %}
+                                        <option value="{{ action.value }}">{{ action.text }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
+                        </div>
+                        <div>
+                            <button type="button" class="button" title="Ejecutar la acción seleccionada" name="index"
+                                    value="0" onclick="getAction()" style="margin:0px 3px 0px 3px">Ir
+                            </button>
+                        </div>
+                        <div>
+                            <span class="action-counter" data-actions-icnt="20">seleccionados 0 de 20 </span>
+                        </div>
+                        <div {#style="text-align: center;"#} id="loader-paginator"
+                                                             class="loader-container-paginator box_inv">
+                            <div class="loader"></div>
+                            <div class="loader2"></div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="results">
+                    <table id="result_list">
+                        <thead>
+                        <tr>
+                            {% if actions and actions|length > 0 %}
+                                <th scope="col" class="action-checkbox-column">
+                                    <div class="text"><span><input type="checkbox" id="action-toggle"></span></div>
+                                    <div class="clear"></div>
+                                </th>
+                            {% endif %}
+                            <th scope="col" class="column-get_person_model">
+                                <div class="text"><span>Persona</span></div>
+                                <div class="clear"></div>
+                            </th>
+                            <th scope="col" class="column-get_diningroom_model">
+                                <div class="text"><span>Comedor</span></div>
+                                <div class="clear"></div>
+                            </th>
+                            <th scope="col" class="column-get_area_person_model">
+                                <div class="text"><span>Área</span></div>
+                                <div class="clear"></div>
+                            </th>
+                            <th scope="col" class="sortable column-menu">
+                                <div class="text"><span>Menú</span></div>
+                                <div class="clear"></div>
+                            </th>
+                            <th scope="col" class="sortable column-is_confirmed">
+                                <div class="text"><span>Confirmado</span></div>
+                                <div class="clear"></div>
+                            </th>
+                            <th scope="col" class="column-more_actions">
+                                <div class="text"><span>Otras acciones</span></div>
+                                <div class="clear"></div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody id="body_table">
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <p class="paginator" id="sinc_paginator">
+
+                </p>
+                {% if actions and actions|length > 0 %}
+                    </form>
+                {% endif %}
+            </div>
+
+
+            <div id="changelist-filter">
+
+                <h2>Filtro</h2>
+                <details data-filter-title="fecha" open>
+                    <summary>
+                        Por fecha
+                    </summary>
+                    <ul id="filt_date">
+                        <li class="selected">
+                            <a href="#" onclick="filter_date_range(null, null)">Cualquier fecha</a></li>
+                        <li>
+                            <a href="#" onclick="filter_date_range('{% now "d/m/Y" %}', '{% now "d/m/Y" %}')">Hoy</a>
+                        </li>
+                        <li class="form-row field-date">
+                            <div>
+                                <label>Desde:</label>
+                                <input type="text" onfocusout="filter_date_gte()" onkeypress="enter_date_gte(event)"
+                                       name="date" class="vDateField"
+                                       size="10" required="" id="date_gte">
+                            </div>
+                        </li>
+                        <li class="form-row field-date">
+                            <div>
+                                <label>Hasta:</label>
+                                <input type="text" onfocusout="filter_date_lte()" onkeypress="enter_date_lte(event)"
+                                       name="date" class="vDateField"
+                                       size="10" required=""
+                                       id="date_lte">
+                            </div>
+                        </li>
+
+                    </ul>
+                </details>
+
+                <details data-filter-title="confirmado" open>
+                    <summary>
+                        Por confirmado
+                    </summary>
+                    <ul id="filt_confirmed">
+                        <li class="selected" data-value="null">
+                            <a href="#" onclick="filter_confirmed('')">Todos</a>
+                        </li>
+                        <li data-value="true">
+                            <a href="#" onclick="filter_confirmed(1)">Sí</a>
+                        </li>
+                        <li data-value="false">
+                            <a href="#" onclick="filter_confirmed(0)">No</a>
+                        </li>
+                    </ul>
+                </details>
+                {% if list_shedules and list_shedules|length > 0 %}
+                    <details data-filter-title="horario" open>
+                        <summary>
+                            Por horario
+                        </summary>
+                        <ul id="filt_shedule">
+                            <li class="selected" data-value="null">
+                                <a href="#" onclick="filter_shedule('')">Todos</a>
+                            </li>
+
+                            {% for shedules in list_shedules %}
+                                <li data-value="{{ shedules.id }}">
+                                    <a href="#" onclick="filter_shedule({{ shedules.id }})">{{ shedules.name }}</a>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </details>
+                {% endif %}
+                {% if list_dinning_room and list_dinning_room|length > 0 %}
+                    <details data-filter-title="comedores" open>
+                        <summary>
+                            Por comedores
+                        </summary>
+                        <ul id="filt_diningroom">
+                            <li class="selected" data-value="null">
+                                <a href="#" onclick="filter_diningroom('')">Todos</a>
+                            </li>
+                            {% for dinning_room in list_dinning_room %}
+                                <li data-value="9">
+                                    <a href="#"
+                                       onclick="filter_diningroom({{ dinning_room.id }})">{{ dinning_room.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br class="clear">
+    <form id="form_invite_offplan" method="POST" action="/reservation/reservation/invite_offplan/">
+        {% csrf_token %}
+        <input id="inp_id_rserv" type="hidden" name="id_reserv" value="">
+    </form>
+    <form id="form_offplan" method="POST" action="/reservation/reservation/offplan/">
+        {% csrf_token %}
+        <input id="off_id_rserv" type="hidden" name="id_reserv" value="">
+    </form>
+    <form id="form_donate" method="POST" action="/reservation/reservation/donate/">
+        {% csrf_token %}
+        <input id="don_id_rserv" type="hidden" name="id_reserv" value="">
+    </form>
+    </div>
+{% endblock %}

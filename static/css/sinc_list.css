@@ -1,0 +1,65 @@
+#toolbar .form-sic input[type="button"] {
+    border: 1px solid var(--border-color);
+    font-size: 0.8125rem;
+    padding: 4px 8px;
+    margin: 0;
+    vertical-align: middle;
+    background: var(--body-bg);
+    box-shadow: 0 -15px 20px -10px rgba(0, 0, 0, 0.15) inset;
+    cursor: pointer;
+    color: var(--body-fg);
+}
+
+#changelist-filter .datetimeshortcuts a {
+    display: inherit;
+}
+
+.form-sic {
+    margin: 0;
+    padding: 0;
+}
+
+#toolbar .form-sic input {
+    border-radius: 4px;
+    font-size: 0.875rem;
+    padding: 5px;
+    color: var(--body-fg);
+}
+
+.uncheck {
+    content: url("../img/uncheck.png");
+}
+
+.uncheck.focus {
+    content: url("../img/uncheck_focus.png");
+}
+
+.check.focus {
+    content: url("../img/check_focus.png");
+}
+
+.check {
+    content: url("../img/check.png");
+}
+
+.check_load {
+    content: url("../img/check_load.gif");
+}
+
+.images_13 {
+    width: 13px;
+    height: 13px;
+}
+
+
+@media (min-width: 767px) {
+    #calendarbox0 {
+        left: 1022px !important;
+        top: 368px !important;
+    }
+
+    #calendarbox1 {
+        left: 1032px !important;
+        top: 462px !important;
+    }
+}

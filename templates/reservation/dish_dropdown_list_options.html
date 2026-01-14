@@ -1,0 +1,3 @@
+{% for dish in dishes %}
+<option value="{{ dish.pk }}" data-price="{{ dish.price|stringformat:'d' }}" selected>{{ dish }}</option>
+{% endfor %}

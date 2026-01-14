@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% load i18n static admin_urls %}
+
+{% block extrahead %}{{ block.super }}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/jquery.modal.min.js' %}"></script>
+    <script src="{% static 'js/cookie.js' %}"></script>
+    <script src="{% static 'js/message.js' %}"></script>
+    <script src="{% static 'js/api_conection.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.dataTables.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.modal.min.css" %}"/>
+{% endblock %}
+
+{% block breadcrumbs_last %}{{ title }}{% endblock %}
+
+{% block content %}
+
+
+    <div id="table_result" class="results">
+
+    </div>
+
+    <div id="form_inv" style="visibility: hidden">
+        <form method="get" id="form_operation">
+            {{ form_operation }}
+            <input type="submit" value="OK">
+        </form>
+
+    </div>
+    <style>
+        .loader-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .loader-container .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: solid 4px transparent;
+            border-top-color: #79aec8;
+            border-left-color: #79aec8;
+            border-radius: 50%;
+            animation: loader 1.4s linear infinite;
+        }
+
+        .loader-container .loader2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 70%;
+            height: 70%;
+            border: solid 4px transparent;
+            border-top-color: #417690;
+            border-left-color: #417690;
+            border-radius: 50%;
+            animation: loader2 1.0s linear infinite;
+        }
+
+        @keyframes loader {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes loader2 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+    </style>
+    <div id="loanding" class="modal">
+        <div style="text-align: center;" class="loader-container">
+            <div class="loader"></div>
+            <div class="loader2"></div>
+        </div>
+        <h1 align="center">Cargando información, por favor espere...</h1>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        var content = document.getElementsByClassName("content")[0]
+        let messagelist = document.createElement("ul");
+        messagelist.setAttribute("class", "messagelist")
+        content.insertAdjacentElement("afterbegin", messagelist)
+
+        var breadcrumbs = document.getElementsByClassName("breadcrumbs");
+        var list = [];
+        for (var i = 0; i < breadcrumbs[0].childNodes.length; i++) {
+            list.push(breadcrumbs[0].childNodes[i].cloneNode(true))
+        }
+        breadcrumbs[0].innerHTML = ""
+        breadcrumbs[0].appendChild(list[0]); // <a>Inicio</a>
+        breadcrumbs[0].appendChild(list[1]); // >
+        {#breadcrumbs[0].appendChild(list[2]); // <a>Personas</a>  #}
+        {#breadcrumbs[0].appendChild(list[3]); // >                #}
+        {#breadcrumbs[0].appendChild(list[4]); // <a>Usuarios</a>  #}
+        {#breadcrumbs[0].appendChild(list[5]); // >                #}
+        breadcrumbs[0].appendChild(list[6]); // Comensales y operaciones
+
+        //Eventos del Modal
+        $('#loanding').modal({
+            escapeClose: false,
+            clickClose: false,
+            showClose: false
+        });
+        window.addEventListener("load", load_diners);
+
+        async function load_diners() {
+
+            const res = await fetch('/people/user/diners-data/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie("csrftoken")
+                },
+                body: JSON.stringify()
+            }).catch(error => console.log(error));
+            if (res) {
+                if (res.ok) {
+                    resp_json = (await res.json()).diners;
+                    load_data(resp_json);
+                    $.modal.close();
+                } else {
+                    resp_json = (await res.json()).error;
+                    error_operation(resp_json)
+                }
+            } else {
+                error_operation("ERROR. Contacte a los administradores del sistema.")
+            }
+        }
+
+        function load_data(data) {
+            var table_data = document.getElementById('table_result');
+
+            var table = "<table id=\"result_list\" class=\"hover\" style=\"width:100%\" data-page-length=\"30\">\n" +
+                "                    <thead>\n" +
+                "                        <tr>\n" +
+                "                            <th scope=\"col\" class=\"column-nombre\">Nombre</th>\n" +
+                "                            <th scope=\"col\" class=\"column-area\">Area</th>\n" +
+                "                            <th scope=\"col\" class=\"column-comedor\">Comedor</th>\n" +
+                "                            <th scope=\"col\" class=\"column-es_dieta\">Es Dieta</th>\n" +
+                "                            <th scope=\"col\" class=\"column-metodo_de_pago\"> Método de Pago</th>\n" +
+                "                            <th scope=\"col\" class=\"column-monto\">Monto</th>\n" +
+                "                        </tr>\n" +
+                "                    </thead>\n" +
+                "                    <tbody>";
+            for (var i = 0; i < data.length; i++) {
+                /*console.log(data[i])*/
+                table = table + "<tr style = \"";
+                if (data[i].amount < 18.00) {
+                    table = table + "background: #F0565B";
+                }
+                if (data[i].amount > 18.00 && data[i].amount < 60.00) {
+                    table = table + "background: #ecd15b";
+                }
+                if (data[i].amount == "CORRUPTO") {
+                    table = table + "background: black;\n" +
+                        "                color: white;\n" +
+                        "                font - weight: bold;";
+                }
+                table = table + ";cursor:pointer;cursor: hand\"\n" +
+                    "            onclick = \"person_ops(" + data[i].id + ")\" style=\"cursor: hand;\">";
+                table = table + "<td>" + data[i].name + "</td>\n";
+                table = table + "<td>" + data[i].area + "</td>\n";
+                table = table + "<td>" + data[i].diningRoom + "</td>\n";
+                table = table + "<td>" + data[i].isDiet + "</td>\n";
+                table = table + "<td>" + data[i].paymentMethod + "</td>\n";
+                table = table + "<td>";
+                if (data[i].amount == "----------" || data[i].amount == "CORRUPTO" || data[i].amount == "TEMPORAL") {
+                    table = table + data[i].amount;
+                } else {
+                    table = table + data[i].amount + " CUP";
+                }
+                table = table + "</td></tr>";
+            }
+            table = table + "</tbody>\n" +
+                "        </table>";
+
+            table_data.innerHTML = table;
+            format_table();
+        }
+
+        function format_table() {
+            $(document).ready(function () {
+                var groupColumn = 1;
+                var table = $('#result_list').DataTable({
+
+                    "dom": '<"toolbar">frtip',
+                    "columnDefs": [
+                        {"visible": false, "targets": groupColumn}
+                    ],
+                    "order": [[groupColumn, 'asc']],
+                    "displayLength": 30,
+                    "drawCallback": function (settings) {
+                        var api = this.api();
+                        var rows = api.rows({page: 'current'}).nodes();
+                        var last = null;
+
+                        api.column(groupColumn, {page: 'current'}).data().each(function (group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before(
+                                    '<tr class="group"><td colspan="5" style="background: #c2c2c2;">' + group + '</td></tr>'
+                                );
+
+                                last = group;
+                            }
+                        });
+                    }
+                });
+                // Order by the grouping
+                $('#result_list tbody').on('click', 'tr.group', function () {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                        table.order([groupColumn, 'desc']).draw();
+                    } else {
+                        table.order([groupColumn, 'asc']).draw();
+                    }
+                });
+            });
+        }
+
+        function error_operation(mess) {
+            var modal = document.getElementById('loanding');
+            while (modal.firstChild) {
+                modal.removeChild(modal.firstChild);
+            }
+            ;
+            var img = "{% static "img/disconnect.png" %}"
+            modal.innerHTML = "<div style=\"width: 175px;height: 100px;\" class=\"loader-container\">\n" +
+                "                        <img src=\"" + img + "\" width=\"100%\" height=\"100%\">\n" +
+                "                    </div>\n" +
+                "                    <h1 align=\"center\">" + mess + "</h1>\n" +
+                "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col\" align=\"right\"></div></div></div>";
+
+        }
+
+        function submit_pager_form() {
+            var form = document.getElementById("form_pager")
+            form.submit()
+        }
+
+        function pager_personal(page) {
+            var input = document.getElementById("id_new_page")
+            input.value = page
+            submit_pager_form()
+        }
+
+        function filtering_personal() {
+            var input = document.getElementById("filtering").value
+            var input_res = document.getElementById("id_filtering")
+            var index = document.getElementById("id_new_page")
+            input_res.value = input
+            index.value = 1
+            submit_pager_form()
+        }
+
+
+        function submit_person_ops() {
+            var form = document.getElementById("form_operation")
+            form.submit()
+        }
+
+
+        async function person_ops(id) {
+            resp = (await connect_post_backend('/people/user/existOperation/', {'id': id}))
+            if (!resp.data.personById) {
+                var messagelist = document.getElementsByClassName("messagelist")[0]
+                showMessage("error", "Error de conexión con la API.Contacte al administrador.")
+                scrollTo(0, 0)
+            } else {
+                if (!resp.data.personById.transactionSet.length) {
+                    var messagelist = document.getElementsByClassName("messagelist")[0]
+                    showMessage("error", resp.data.personById.name + " no tiene operaciones")
+                    scrollTo(0, 0)
+                } else {
+                    window.open("/people/user/diner/?person_operations=" + id, "_blank")
+                }
+            }
+        }
+
+
+    </script>
+
+{% endblock %}

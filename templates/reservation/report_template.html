@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load i18n static admin_urls %}
+
+{% block extrahead %}{{ block.super }}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.modal.min.css" %}"/>
+{% endblock %}
+
+{% block breadcrumbs_last %}{{ title }}{% endblock %}
+
+{% block content %}
+    <style>
+        #summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--darkened-bg);
+            border: 1px solid var(--hairline-color);
+            border-radius: 4px;
+            padding-bottom: 7px;
+        }
+    </style>
+    <form method="post" novalidate autocomplete="off">{% csrf_token %}
+        {% csrf_token %}
+        {% include 'include/form_fieldset.html' %}
+        <div class="submit-row">
+            <input type="submit" onclick="$('#loanding').modal()" class="default" value="{% trans "Submit" %}">
+        </div>
+    </form>
+    {% if reports %}
+        {% if dining_room %}
+            <div style="display: flex; justify-content: center">
+                <h2>{{ dining_room }}</h2>
+            </div>
+        {% endif %}
+
+        <div id="summary">
+            <h3 style="color: var(--body-quiet-color)">Reservaciones planificadas: {{ summary.planning }}</h3>
+            <h3 style="color: var(--body-quiet-color)">Reservaciones confirmadas: {{ summary.real }}</h3>
+            <h3 style="color: var(--body-quiet-color)">Reservaciones no confirmadas: {{ summary.not_confirmed }}</h3>
+        </div>
+        <div class="row">
+            {% for v in reports %}
+                <div class="col">
+                    <h2>{{ v.name }}</h2>
+                    <h1>{% trans "number of reservations"|capfirst %} <span
+                            class="badge badge-primary">{{ v.planning }}</span>
+                    </h1>
+                    <ul>
+                        {% for c in v.dishes_count %}
+                            <li><strong>{{ c.count }}</strong>
+                                <span class="text-muted"> - {{ c.name|safe }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <br class="clear">
+                    {% if v.real %}
+                        <h1>{% trans "Confirmed" %} <span
+                                class="badge badge-danger">{{ v.real }}</span>
+                        </h1>
+                        <ul>
+                            {% for c in v.dishes_count_confirmed %}
+                                <li><strong>{{ c.count }}</strong>
+                                    <span class="text-muted"> - {{ c.name|safe }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <br class="clear">
+                    {% endif %}
+                    {% if v.areas %}
+                        <h1>{% trans "Reservations by areas" %}</h1>
+                        <ul>
+                            {% for area in v.areas %}
+                                <li><strong>{{ area.name }}</strong>
+                                    <span class="text-muted"> - {{ area.count }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <br class="clear">
+                    {% endif %}
+                    {% if v.categories %}
+                        <h1>{% trans "Reservations by categories" %}</h1>
+                        <ul>
+                            {% for categories in v.categories %}
+                                <li><strong>{{ categories.name }}</strong>
+                                    <span class="text-muted"> - {{ categories.count }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <br class="clear">
+                    {% endif %}
+                    {% if v.not_confirmed %}
+                        <h1>{% trans "Not confirmed" %} <span
+                                class="badge badge-danger">{{ v.count_not_confirmed }}</span>
+                        </h1>
+                        <ul class="not-confirmed">
+                            {% for n in v.not_confirmed %}
+                                <li><span
+                                        class="not-conf-person">{{ n.id_person }}</span> {% if n.count > 1 %}
+                                    <strong>({{ n.count }})</strong>{% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <br class="clear">
+                    {% endif %}
+                    {% if v.invites %}
+                        <h1>{% trans "Invites" %} <span
+                                class="badge badge-danger">{{ v.count_invites }}</span>
+                        </h1>
+                        <ul class="invites">
+                            {% for n in v.invites %}
+                                <li><span data-key="{{ n.type_offplan }}"
+                                          data-invite="{{ n.category }}">{{ n.id_offplan }}</span> {% if n.count > 1 %}
+                                    <strong>({{ n.count }})</strong>{% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <br class="clear">
+                    {% endif %}
+                    {% if v.offplan %}
+                        <h1>{% trans "Off plan" %} <span
+                                class="badge badge-danger">{{ v.count_offplan }}</span>
+                        </h1>
+                        <ul class="off-plan">
+                            {% for n in v.offplan %}
+                                <li><span class="{{ n.type_offplan }}">{{ n.id_offplan }}</span> {% if n.count > 1 %}
+                                    <strong>({{ n.count }})</strong>{% endif %}</li>
+                            {% endfor %}
+                        </ul>
+                        <br class="clear">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <style>
+        .loader-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .loader-container .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: solid 4px transparent;
+            border-top-color: #79aec8;
+            border-left-color: #79aec8;
+            border-radius: 50%;
+            animation: loader 1.4s linear infinite;
+        }
+
+        .loader-container .loader2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 70%;
+            height: 70%;
+            border: solid 4px transparent;
+            border-top-color: #417690;
+            border-left-color: #417690;
+            border-radius: 50%;
+            animation: loader2 1.0s linear infinite;
+        }
+
+        @keyframes loader {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes loader2 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+    </style>
+    <div id="loanding" class="modal">
+        <div style="text-align: center;" class="loader-container">
+            <div class="loader"></div>
+            <div class="loader2"></div>
+        </div>
+        <h1 align="center">Cargando información, por favor espere...</h1>
+    </div>
+{% endblock %}

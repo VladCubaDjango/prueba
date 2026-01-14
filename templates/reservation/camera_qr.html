@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load i18n static admin_urls %}
+<title>Cámara QR</title>
+
+{% block extrahead %}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    <script src="{% static 'js/instascan.min.js' %}"></script>
+    <script src="{% static 'js/camera2.js' %}"></script>
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/camera.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"/>
+{% endblock %}
+{% block content_title %}<h1>Bienvenido al sistema de comensales</h1>{% endblock %}
+{% block content %}
+    <div id="container_trainer" class="rowmn">
+        <div id="cam_div" class="colmn box_inv">
+            <video id="video_qr" style="display: table-cell">
+            </video>
+        </div>
+        <div class="colmn colmn-respon colmn-normal bord-normal extra-margin box_inv" id="information">
+            <div id="id_loanding_info" class="loanding_info box_inv">
+                <div style="text-align: center;" class="loader-container">
+                    <div class="loader"></div>
+                    <div class="loader2"></div>
+                </div>
+            </div>
+            <div id="id_info_cont" class="info_cont">
+                <div id="id_head_info" class="head_info box_inv">
+                    <h1 id="person_name" class=""></h1>
+                    <h1 id="date_text" class=""></h1>
+                </div>
+                <div id="id_body_info" class="body_info colmn">
+                </div>
+                <div id="id_footer_info" class="footer_info box_inv colmn ">
+                    <div>
+                        <h1 id="left-footer"></h1>
+                    </div>
+                    <div>
+                        <h1 id="right-footer"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 id="page_foot" class="extra-h1"></h1>
+
+    <div id="loanding_cam">
+        <div style="text-align: center;" class="loader-container">
+            <div class="loader"></div>
+            <div class="loader2"></div>
+        </div>
+        <h1 align="center" class="big_text">Cargando la cámara, por favor espere...</h1>
+    </div>
+
+    <script>
+        window.focus()
+        var sonido = new Audio("/static/audio/beep.mp3")
+        let opts = {
+            continuous: true,
+
+            video: document.getElementById('video_qr'),
+
+            mirror: false,
+
+            captureImage: false,
+
+            backgroundScan: true,
+
+            refractoryPeriod: 300000,
+
+            scanPeriod: 1
+        };
+        let scanner = new Instascan.Scanner(opts);
+
+        scanner.addListener('scan', function (content) {
+            sonido.play();
+
+            save_qr(content)
+        });
+
+        var int_reload = 5
+
+        function load_camera() {
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    int_reload = 5
+                    scanner.start(cameras[0]);
+                    var rowmn = document.getElementsByClassName("rowmn")
+                    for (var i = 0; i < rowmn.length; i++) {
+                        rowmn[i].classList.remove("box_inv")
+                    }
+                    document.getElementById("loanding_cam").classList.add("box_inv")
+                    //window.opener.showMessage("success", "Cámara cargada con éxito.")
+                    document.getElementById("container_trainer").classList.add("rowmn_two")
+                    document.getElementById("cam_div").classList.remove("box_inv")
+                    document.getElementById("information").classList.remove("extra-margin")
+                    document.getElementById("information").classList.remove("box_inv")
+                } else {
+                    console.error('No se encontraron cámaras.');
+                }
+            }).catch(function (e) {
+                //window.opener.showMessage("error", "Error al cargar la cámara.")
+                document.getElementById("loanding_cam").classList.add("box_inv")
+                document.getElementById("information").classList.remove("box_inv")
+                //document.getElementById("error_cam").classList.remove("box_inv")
+                console.error(e);
+                setTimeout(reload_camera, 3000)
+            });
+        }
+
+        function reload_camera() {
+            if (int_reload > 0) {
+                int_reload = int_reload - 1
+                load_camera()
+            } else {
+                document.getElementById("error_camera_text").innerHTML = "ERROR al cargar la cámara."
+                window.opener.showMessage("error", "Error al cargar la cámara. Revise la conexión de la cámara y reinicie el navegador.")
+            }
+
+        }
+
+        load_camera()
+    </script>
+{% endblock %}

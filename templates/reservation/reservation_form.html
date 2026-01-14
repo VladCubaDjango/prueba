@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n static admin_urls %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}{% endblock %}
+
+
+{% block breadcrumbs_last %}{{ title }}{% endblock %}
+
+{% block content %}
+    {% block object-tools %}
+        <ul class="object-tools">
+            {% if perms.reservation.add_reservation or perms.reservation.change_reservation %}
+                {% if perms.reservation.view_camera %}
+                    <li>
+                        <a href="#" class="viewlink" onclick='open_windows("/reservation/reservation/camera_qr/")'>
+                            Pantalla
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    {% endblock %}
+
+    <form method="post" novalidate autocomplete="off"
+          id="{{ opts.model_name }}_form" novalidate
+          {% if form_data_url %}data-url="{{ form_data_url }}"{% endif %}
+          {% if type_view %}data-type_view="{{ type_view }}"{% endif %}
+          {% if extra_data %}data-extra_data="{{ extra_data }}"{% endif %}
+          {% if type_view == 'change' %}data-is_diet="{{ is_diet }}"{% endif %}
+    >
+        {% csrf_token %}
+        {% include 'include/form_fieldset.html' %}
+        <div class="submit-row">
+            {% if show_delete_link and original %}
+                {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+                <p class="deletelink-box"><a href="{% add_preserved_filters delete_url %}"
+                                             class="deletelink">{% translate "Delete" %}</a></p>
+            {% endif %}
+            {% if show_save_and_add_another %}
+                <input type="submit" value="{% translate 'Save and add another' %}" name="_addanother">{% endif %}
+            {% if show_save_and_continue %}
+                <input type="submit" value="{% translate 'Save and continue editing' %}" name="_continue">{% endif %}
+            {% if show_reset %}<input type="button" value="{% translate 'Reset' %}" id="reset_button">{% endif %}
+            {% url opts|admin_urlname:'changelist' as close_url %}
+            <a href="{% add_preserved_filters close_url %}" class="closelink">{% translate 'Close' %}</a>
+        </div>
+    </form>
+{% endblock %}

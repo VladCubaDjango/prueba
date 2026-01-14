@@ -1,0 +1,1040 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-30 05:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: .\diners\apps\people\admin.py:33 .\diners\apps\people\forms.py:14
+#: .\diners\apps\people\models.py:14 .\diners\apps\reservation\admin.py:1318
+#: .\diners\apps\reservation\forms.py:33 .\diners\apps\reservation\forms.py:278
+#: .\diners\apps\reservation\forms.py:301
+#: .\diners\apps\reservation\forms.py:458
+#: .\diners\apps\reservation\forms.py:464
+#: .\diners\apps\reservation\forms.py:606
+#: .\diners\apps\reservation\models.py:250
+msgid "person"
+msgstr ""
+
+#: .\diners\apps\people\admin.py:62 .\diners\apps\reservation\models.py:177
+#: .\diners\apps\reservation\models.py:293
+msgid "operations"
+msgstr ""
+
+#: .\diners\apps\people\admin.py:66 .\diners\apps\reservation\forms.py:250
+#: .\diners\apps\reservation\models.py:126
+msgid "date"
+msgstr ""
+
+#: .\diners\apps\people\admin.py:67
+msgid "type"
+msgstr ""
+
+#: .\diners\apps\people\admin.py:68
+msgid "amount"
+msgstr ""
+
+#: .\diners\apps\people\admin.py:77 .\diners\apps\people\admin.py:91
+#: .\diners\apps\reservation\admin.py:86 .\diners\apps\reservation\admin.py:111
+#: .\diners\apps\reservation\admin.py:384
+#: .\diners\apps\reservation\admin.py:572
+#: .\diners\apps\reservation\admin.py:583
+#: .\diners\apps\reservation\admin.py:674
+#: .\diners\apps\reservation\admin.py:883
+#: .\diners\apps\reservation\admin.py:934
+#: .\diners\apps\reservation\admin.py:1005
+#: .\diners\apps\reservation\admin.py:1161
+#: .\diners\apps\reservation\admin.py:1191
+#: .\diners\apps\reservation\admin.py:1201
+#: .\diners\apps\reservation\admin.py:1367
+#: .\diners\apps\reservation\admin.py:1379
+#: .\diners\apps\reservation\forms.py:370
+#: .\diners\apps\reservation\forms.py:434
+#: .\diners\apps\reservation\forms.py:515
+#: .\diners\apps\reservation\forms.py:571
+#: .\diners\apps\reservation\forms.py:669
+#: .\diners\apps\reservation\views.py:160
+#: .\diners\apps\reservation\views.py:201
+#: .\diners\apps\reservation\views.py:378
+#: .\diners\apps\reservation\views.py:381
+#: .\diners\apps\reservation\views.py:427
+msgid "Connection error. Contact the system administrators."
+msgstr ""
+
+#: .\diners\apps\people\admin.py:111
+msgid "You do not have permission to view the operations of the selected user."
+msgstr ""
+
+#: .\diners\apps\people\admin.py:116
+msgid "diners and operations"
+msgstr ""
+
+#: .\diners\apps\people\apps.py:7 .\diners\apps\people\apps.py:8
+msgid "People"
+msgstr ""
+
+#: .\diners\apps\people\forms.py:33
+msgid "Person operations"
+msgstr ""
+
+#: .\diners\apps\people\forms.py:37
+msgid "Index page"
+msgstr ""
+
+#: .\diners\apps\people\forms.py:38
+msgid "Filtering"
+msgstr ""
+
+#: .\diners\apps\people\models.py:23
+msgid "Can view diner(s)"
+msgstr ""
+
+#: .\diners\apps\people\models.py:24
+msgid "Can view all diners"
+msgstr ""
+
+#: .\diners\apps\people\models.py:25
+msgid "Can view all diners from same area"
+msgstr ""
+
+#: .\diners\apps\people\views.py:91
+msgid "There is corrupted data. Consult the administrator."
+msgstr ""
+
+#: .\diners\apps\people\views.py:105 .\diners\apps\people\views.py:116
+msgid "advanced payment"
+msgstr ""
+
+#: .\diners\apps\people\views.py:126 .\diners\apps\people\views.py:137
+msgid "card payment"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:106
+#, python-format
+msgid "Successfully deleted %(count)d %(items)s."
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:120
+#: .\diners\apps\reservation\admin.py:691
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:122
+#: .\diners\apps\reservation\admin.py:693
+msgid "Are you sure?"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:150
+msgid "off plan invites confirmation"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:160
+msgid "donate confirmation"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:170
+msgid "off plan confirmation"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:179
+msgid "Delete selected objects"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:180
+msgid "Confirm reservations of invites off plan"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:181
+msgid "Confirm reservations as donate"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:182
+msgid "Confirm reservations off plan"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:207
+#: .\diners\apps\reservation\models.py:88
+msgid "start time"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:212
+#: .\diners\apps\reservation\models.py:92
+msgid "end time"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:217
+#: .\diners\apps\reservation\models.py:96
+msgid "offplan time"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:222
+#: .\diners\apps\reservation\models.py:100
+msgid "report time"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:328
+#: .\diners\apps\reservation\views.py:399
+#: .\diners\apps\reservation\views.py:401
+#: .\diners\apps\reservation\views.py:403
+#: .\diners\apps\reservation\views.py:407
+msgid "Empty"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:345
+msgid "schedule (count)"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:354
+msgid "dining rooms"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:490
+msgid "Cancel"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:493
+msgid "Info"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:496
+msgid "Actions"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:586
+msgid "The reservation you are trying to access does not exist"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:607
+msgid "The reservation cannot delete"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:613
+msgid "The reservation you are trying to delete does not exist"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:736
+#, python-format
+msgid "The “%(obj)s” was deleted successfully."
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:899
+msgid "Database error"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:957
+msgid ""
+"Items must be selected in order to perform actions on them. No items have "
+"been changed."
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1075
+#, python-format
+msgid "%(count)s %(name)s was changed successfully."
+msgid_plural "%(count)s %(name)s were changed successfully."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\diners\apps\reservation\admin.py:1112
+#, python-format
+msgid "%(total_count)s selected"
+msgid_plural "All %(total_count)s selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\diners\apps\reservation\admin.py:1120
+#, python-format
+msgid "0 of %(cnt)s selected"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1176
+msgid "reservations report"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1208
+msgid "All dining rooms"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1283
+#, python-brace-format
+msgid "Report for {0}"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1286
+#, python-brace-format
+msgid "There is still no menu for {0}."
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1288
+msgid "Sorry something went wrong, check the inputs and try again please."
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1296
+msgid "Camera QR"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1319
+#: .\diners\apps\reservation\forms.py:28 .\diners\apps\reservation\forms.py:296
+#: .\diners\apps\reservation\forms.py:601
+msgid "area"
+msgstr ""
+
+#: .\diners\apps\reservation\admin.py:1320
+#: .\diners\apps\reservation\forms.py:226
+#: .\diners\apps\reservation\forms.py:255
+#: .\diners\apps\reservation\models.py:197
+msgid "dining room"
+msgstr ""
+
+#: .\diners\apps\reservation\apps.py:7
+msgid "Reservation"
+msgstr ""
+
+#: .\diners\apps\reservation\apps.py:8
+msgid "Reservations"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:38
+msgid "is diet"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:180
+#: .\diners\apps\reservation\views.py:851
+#, python-format
+msgid "You can no longer reserve for %(date)s."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:185
+msgid "You can no longer reserve for Saturday or Sunday"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:211
+msgid "The diner already has a reservation with that menu."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:264
+#, python-format
+msgid "Wait until %(time)s."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:289
+#: .\diners\apps\reservation\forms.py:594
+msgid "ubication"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:290
+#: .\diners\apps\reservation\forms.py:595
+msgid "inside"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:290
+#: .\diners\apps\reservation\forms.py:595
+msgid "outside"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:315
+#: .\diners\apps\reservation\forms.py:323
+#: .\diners\apps\reservation\forms.py:476
+#: .\diners\apps\reservation\forms.py:537
+#: .\diners\apps\reservation\forms.py:620
+#: .\diners\apps\reservation\forms.py:628
+msgid "This field is required."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:336
+#: .\diners\apps\reservation\forms.py:489
+#: .\diners\apps\reservation\forms.py:642
+#, python-brace-format
+msgid "You must select all people to reserv. {0} left."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:343
+#: .\diners\apps\reservation\forms.py:496
+#: .\diners\apps\reservation\forms.py:552
+#: .\diners\apps\reservation\forms.py:649
+msgid ""
+"At least a selected reservation does not exists. Try selecting others "
+"reservations again."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:354
+#: .\diners\apps\reservation\forms.py:507
+#: .\diners\apps\reservation\forms.py:563
+#: .\diners\apps\reservation\forms.py:660
+msgid ""
+"At least a selected reservation is out of time. Try selecting others "
+"reservations again."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:379
+#, python-brace-format
+msgid "The diner {0} has reservation today."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:384
+#: .\diners\apps\reservation\forms.py:684
+#, python-brace-format
+msgid "The diner {0} has reservation today for an invite."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:390
+#: .\diners\apps\reservation\forms.py:690
+#, python-brace-format
+msgid "The diner {0} has reservation today for an offplan."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:400
+#, python-brace-format
+msgid "The diner {0} has not enought balance."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:412
+#, python-brace-format
+msgid "The balance of {0} is corrupted. It cannot confirm."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:451
+msgid "count"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:452
+#: .\diners\apps\reservation\views.py:642
+msgid "one"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:452
+msgid "all"
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:526
+#: .\diners\apps\reservation\forms.py:582
+#, python-brace-format
+msgid "The diner {0} cannot donate by self."
+msgstr ""
+
+#: .\diners\apps\reservation\forms.py:680
+#, python-brace-format
+msgid "The diner {0} has confirmed reservation today."
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:27
+msgid "option number"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:28
+#, python-brace-format
+msgid "This number must be between {min} and {max}."
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:34
+#: .\diners\apps\reservation\models.py:41
+msgid "dish category"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:35
+msgid "dish categories"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:46
+msgid "price"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:56
+msgid "dish"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:57
+#: .\diners\apps\reservation\models.py:63
+#: .\diners\apps\reservation\models.py:79
+msgid "dishes"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:78
+msgid "full payment"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:80
+msgid "dishes($)"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:104
+msgid "is payment"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:110
+#: .\diners\apps\reservation\models.py:233
+msgid "meal schedule"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:111
+#: .\diners\apps\reservation\models.py:234
+msgid "meals schedules"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:118
+msgid "diet dishes"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:122
+#: .\diners\apps\reservation\models.py:217
+msgid "schedule"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:155
+msgid "full diet payment"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:156
+msgid "dishes of diet"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:157
+msgid "dishes of diet($)"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:164
+#: .\diners\apps\reservation\models.py:269
+msgid "menu"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:165
+msgid "menus"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:173
+#: .\diners\apps\reservation\models.py:176
+msgid "operation"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:183
+#: .\diners\apps\reservation\models.py:187
+#: .\diners\apps\reservation\models.py:190
+msgid "user"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:191
+msgid "users"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:202
+msgid "confirmable"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:210
+#: .\diners\apps\reservation\models.py:221
+#: .\diners\apps\reservation\models.py:256
+msgid "reservation category"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:211
+msgid "reservation categories"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:225
+msgid "count diners"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:263
+msgid "donate"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:273
+msgid "reserved by"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:279
+msgid "updated by"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:283
+msgid "confirmed by"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:289
+msgid "offplan information"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:297
+msgid "is confirmed"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:310
+#, python-brace-format
+msgid "Reservation for {0} on {1}"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:316
+msgid "reservation"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:317
+msgid "reservations"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:320
+msgid "Can view all reserves"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:321
+msgid "Can view all reserves from same area"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:322
+msgid "Can add all reserves"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:323
+msgid "Can add all reserves from same area"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:324
+msgid "Can change all reserves"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:325
+msgid "Can change all reserves from the day"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:326
+msgid "Can change all reserves from same area"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:327
+msgid "Can delete all reserves"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:328
+msgid "Can delete all reserves from same area"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:329
+msgid "Can view report"
+msgstr ""
+
+#: .\diners\apps\reservation\models.py:330
+msgid "Can view operation"
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:164
+#: .\diners\apps\reservation\views.py:205
+msgid "The advance payment is not enough to modify the menu."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:255
+#, python-brace-format
+msgid "The “{obj}” was changed successfully."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:278
+#, python-brace-format
+msgid ""
+"The “{obj}” was added successfully. You may add another reservation below."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:291
+#: .\diners\apps\reservation\views.py:456
+#: .\templates\admin\reservation\reservation\change_form.html:66
+#: .\templates\admin\reservation\reservation\change_list.html:54
+#: .\templates\admin\reservation\reservationcategory\change_list.html:65
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\diners\apps\reservation\views.py:373
+msgid "The diner does not exists."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:476
+#, python-format
+msgid "<strong>A reservation</strong> cannot confirm out of plan."
+msgid_plural ""
+"<strong>%(count)s reservations</strong> cannot confirm out of plan."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\diners\apps\reservation\views.py:484
+#, python-format
+msgid ""
+"<strong>The reservation</strong> to confirm is %(name)s. Select a diner "
+"below."
+msgid_plural ""
+"The <strong>%(count)s reservations</strong> to confirm are %(name)s. Select "
+"%(count)s diners below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\diners\apps\reservation\views.py:517
+#, python-brace-format
+msgid "<strong>{0}</strong> reservation are confirmed."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:546
+#, python-brace-format
+msgid "<strong>{0}</strong> reservation are not invited."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:551
+#: .\diners\apps\reservation\views.py:632
+#: .\diners\apps\reservation\views.py:707
+#, python-brace-format
+msgid "<strong>{0}</strong> reservation are offtime for today ({1} - {2})."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:583
+#: .\diners\apps\reservation\views.py:669
+#: .\diners\apps\reservation\views.py:737
+#, python-format
+msgid "<strong>The reservation</strong> is confirmed successfuly."
+msgid_plural ""
+"<strong>%(count)s reservations</strong> are confirmed successfuly."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\diners\apps\reservation\views.py:593
+#, python-brace-format
+msgid ""
+"Reservation of <strong>{0}</strong> confirmed: The diner has a balance of: "
+"<strong>${1}</strong>."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:597
+#, python-brace-format
+msgid ""
+"Reservation of <strong>{0}</strong> confirmed: You must mark <strong>${1}</"
+"strong> on card."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:627
+#: .\diners\apps\reservation\views.py:702
+#, python-brace-format
+msgid "<strong>{0}</strong> reservation are not particular."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:793
+#, python-format
+msgid "%(name)s's reservation was confirmed"
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:805
+#, python-format
+msgid "%(name)s's %(sched)s reservation is already confirmed"
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:808
+#, python-format
+msgid "%(name)s has not reserved %(sched)s for today."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:811
+#, python-format
+msgid "%(name)s can't confirm after hours."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:813
+#, python-format
+msgid "%(name)s has not reserved for today."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:815
+#, python-format
+msgid "%(name)s is not a diner."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:913
+msgid "The followings categories grouped by mealschedules are not reserved."
+msgstr ""
+
+#: .\diners\apps\reservation\views.py:918
+msgid "All reservations are generated successfully."
+msgstr ""
+
+#: .\diners\settings\base.py:100
+msgid "Spanish"
+msgstr ""
+
+#: .\diners\settings\base.py:101
+msgid "English"
+msgstr ""
+
+#: .\diners\urls.py:8
+msgid "Diner management system"
+msgstr ""
+
+#: .\diners\utils\graphql.py:503
+msgid "All"
+msgstr ""
+
+#: .\diners\utils\helpers.py:82
+#, python-brace-format
+msgid "The diner: <strong>{0}</strong> pays by card."
+msgstr ""
+
+#: .\diners\utils\helpers.py:88
+msgid "yes"
+msgstr ""
+
+#: .\diners\utils\helpers.py:90
+msgid "no"
+msgstr ""
+
+#: .\diners\utils\helpers.py:95
+msgid "credit"
+msgstr ""
+
+#: .\diners\utils\helpers.py:97
+msgid "debit"
+msgstr ""
+
+#: .\diners\utils\helpers.py:149
+#, python-brace-format
+msgid "Payment completed: The diner has a balance of: <strong>${0}</strong>."
+msgstr ""
+
+#: .\diners\utils\helpers.py:153
+#, python-brace-format
+msgid ""
+"Payment completed: The diner has a balance of: <strong>${0}</strong>. We "
+"recommend increasing it before reaching a negative balance."
+msgstr ""
+
+#: .\diners\utils\helpers.py:158
+#, python-brace-format
+msgid ""
+"Payment completed: The diner has enough balance only for ONE future "
+"reservation. We recommend increasing your balance as soon as possible. "
+"Current Balance: <strong>${0}</strong>."
+msgstr ""
+
+#: .\diners\utils\helpers.py:163
+#, python-brace-format
+msgid ""
+"Payment completed: The diner must increase their balance before making a new "
+"reservation. Current Balance: <strong>${0}</strong>."
+msgstr ""
+
+#: .\diners\utils\helpers.py:171
+#, python-brace-format
+msgid ""
+"The diner: <strong>{0}</strong> has a balance of: <strong>${1}</strong>."
+msgstr ""
+
+#: .\diners\utils\helpers.py:175
+#, python-brace-format
+msgid ""
+"The diner: <strong>{0}</strong> has a balance of: <strong>${1}</strong>. We "
+"recommend increasing it before reaching a negative balance."
+msgstr ""
+
+#: .\diners\utils\helpers.py:180
+#, python-brace-format
+msgid ""
+"The diner: <strong>{0}</strong> has enough balance only for ONE future "
+"reservation. We recommend increasing your balance as soon as possible. "
+"Current Balance: <strong> ${1}</strong>."
+msgstr ""
+
+#: .\diners\utils\helpers.py:185
+#, python-brace-format
+msgid ""
+"The diner: <strong>{0}</strong>, must increase their balance before making a "
+"new reservation. Current Balance: strong>${1}</strong>."
+msgstr ""
+
+#: .\diners\utils\mixins.py:7
+msgid "name"
+msgstr ""
+
+#: .\diners\utils\mixins.py:21
+msgid "is active"
+msgstr ""
+
+#: .\diners\utils\mixins.py:31
+msgid "creation date"
+msgstr ""
+
+#: .\diners\utils\mixins.py:35
+msgid "modification date"
+msgstr ""
+
+#: .\templates\admin\app_identity.html:7 .\templates\admin\app_list.html:10
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+#: .\templates\admin\app_list.html:31
+msgid "Add"
+msgstr ""
+
+#: .\templates\admin\app_list.html:37
+msgid "View"
+msgstr ""
+
+#: .\templates\admin\app_list.html:39
+msgid "Change"
+msgstr ""
+
+#: .\templates\admin\app_list.html:53
+msgid "You don’t have permission to view or edit anything."
+msgstr ""
+
+#: .\templates\admin\base.html:39
+msgid "Welcome,"
+msgstr ""
+
+#: .\templates\admin\base.html:44
+msgid "View site"
+msgstr ""
+
+#: .\templates\admin\base.html:49
+msgid "Documentation"
+msgstr ""
+
+#: .\templates\admin\base.html:53
+msgid "Change password"
+msgstr ""
+
+#: .\templates\admin\base.html:55
+msgid "Log out"
+msgstr ""
+
+#: .\templates\admin\base.html:65
+#: .\templates\admin\reservation\reservation\change_form.html:19
+#: .\templates\admin\reservation\reservation\change_list.html:33
+#: .\templates\admin\reservation\reservationcategory\change_list.html:33
+#: .\templates\base.html:13
+msgid "Home"
+msgstr ""
+
+#: .\templates\admin\base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
+#: .\templates\admin\base_site.html:12
+msgid "Django administration"
+msgstr ""
+
+#: .\templates\admin\change_form_object_tools.html:7
+msgid "History"
+msgstr ""
+
+#: .\templates\admin\change_form_object_tools.html:11
+msgid "View on site"
+msgstr ""
+
+#: .\templates\admin\nav_sidebar.html:2
+msgid "Toggle navigation"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\change_form.html:26
+#: .\templates\admin\reservation\reservation\change_list_object_tools.html:8
+#: .\templates\admin\reservation\reservationcategory\change_list_object_tools.html:8
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\change_form.html:46
+#: .\templates\admin\reservation\reservation\change_list_object_tools.html:24
+msgid "Screen"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\change_form.html:67
+#: .\templates\admin\reservation\reservation\change_list.html:55
+#: .\templates\admin\reservation\reservationcategory\change_list.html:66
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\change_list.html:82
+#: .\templates\admin\reservation\reservationcategory\change_list.html:93
+msgid "Filter"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\change_list.html:84
+#: .\templates\admin\reservation\reservationcategory\change_list.html:95
+msgid "Clear all filters"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\change_list_object_tools.html:16
+#, python-format
+msgid "Report %(app)s"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:4
+#: .\templates\reservation\actions_template.html:22
+#: .\templates\reservation\donate_template.html:30
+msgid "Save"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:7
+msgid "Delete"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:9
+msgid "Save as new"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:10
+msgid "Save and add another"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:11
+msgid "Save and continue editing"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:11
+msgid "Save and view"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:12
+msgid "Reset"
+msgstr ""
+
+#: .\templates\admin\reservation\reservation\submit_line.html:15
+#: .\templates\reservation\actions_template.html:24
+msgid "Close"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:23
+msgid "Submit"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:36
+msgid "number of reservations"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:48
+msgid "Confirmed"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:61
+msgid "Reservations by areas"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:72
+msgid "Reservations by categories"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:83
+msgid "Not confirmed"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:94
+msgid "Invites"
+msgstr ""
+
+#: .\templates\reservation\report_template.html:105
+msgid "Off plan"
+msgstr ""

@@ -1,0 +1,14 @@
+{% load i18n %}
+
+    <div class="app-identity module {% if "diner" in request.path %}current-app{% endif %}">
+        <table width="100%">
+            <caption>
+                <a href="#" class="section"
+                   title="{% blocktranslate with name="Identity" %}Models in the {{ name }} application{% endblocktranslate %}">Identidad </a>
+            </caption>
+            <tr class="model-person {% if "diner" in request.path %}current-model{% endif %}">
+                <th scope="row" {% if "diner" in request.path %} aria-current="page"{% endif %}><a
+                        href="{% url 'admin:people_user_diner' %}"> Comensales y Operaciones </a></th>
+            </tr>
+        </table>
+    </div>

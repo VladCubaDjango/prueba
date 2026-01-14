@@ -1,0 +1,28 @@
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+    {% if has_add_permission %}
+        <li>
+            {% url cl.opts|admin_urlname:'add' as add_url %}
+            <a href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink">
+                {% blocktranslate with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktranslate %}
+            </a>
+        </li>
+    {% endif %}
+    {% if cl.opts.model_name == 'reservation' and 'reservation.view_report' in perms %}
+        <li>
+            {% url cl.opts|admin_urlname:'report' as report_url %}
+            <a href="{{ report_url }}">
+                {% blocktranslate with cl.opts.verbose_name_plural as app %}Report {{ app }}{% endblocktranslate %}
+            </a>
+        </li>
+    {% endif %}
+    {% if cl.opts.model_name == 'reservation' and 'reservation.change_camera' in perms %}
+        <li>
+            {% url cl.opts|admin_urlname:'camera_qr' as camera_url %}
+            <a href="#" class="viewlink" onclick='open_windows()'>
+                {% blocktranslate%}Screen{% endblocktranslate %}
+            </a>
+        </li>
+    {% endif %}
+{% endblock %}

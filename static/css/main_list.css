@@ -1,0 +1,105 @@
+.loader-container-paginator {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loader-container-paginator .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: solid 0.8px transparent;
+    border-top-color: #79aec8;
+    border-left-color: #79aec8;
+    border-radius: 50%;
+    animation: loader 1.4s linear infinite;
+}
+
+.loader-container-paginator .loader2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: 70%;
+    border: solid 0.8px transparent;
+    border-top-color: #417690;
+    border-left-color: #417690;
+    border-radius: 50%;
+    animation: loader2 1.0s linear infinite;
+}
+
+.loader-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loader-container .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: solid 4px transparent;
+    border-top-color: #79aec8;
+    border-left-color: #79aec8;
+    border-radius: 50%;
+    animation: loader 1.4s linear infinite;
+}
+
+.loader-container .loader2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: 70%;
+    border: solid 4px transparent;
+    border-top-color: #417690;
+    border-left-color: #417690;
+    border-radius: 50%;
+    animation: loader2 1.0s linear infinite;
+}
+
+@keyframes loader {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes loader2 {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+.info-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: initial;
+}
+
+.padding-action {
+    margin: 1px 1px;
+}
+
+.box_inv {
+    /*background: white;*/
+    display: none !important;
+}
