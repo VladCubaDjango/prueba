@@ -533,8 +533,7 @@ class DonateForm(ActionFormMixins):
                         person = diner['person']
                         if 'errors' not in resp_json and diner:
                             # si es donativo de su propia reserva
-                            if Reservation.objects.filter(Q(id=id_reserv) & reserv_in_time).first().person == int(
-                                    id_person):
+                            if Reservation.objects.filter(Q(id=id_reserv) & reserv_in_time).values_list('person', flat=True).first() == int(id_person):
                                 error_list.append(
                                     _('The diner {0} cannot donate by self.').format(person['name']))
             if error_list:
@@ -589,8 +588,7 @@ class DonateForm(ActionFormMixins):
                         person = diner['person']
                         if 'errors' not in resp_json and diner:
                             # si es donativo de su propia reserva
-                            if Reservation.objects.filter(Q(id=id_reserv) & reserv_in_time).first().person == \
-                                    int(selected_diners[0]):
+                            if Reservation.objects.filter(Q(id=id_reserv) & reserv_in_time).values_list('person', flat=True).first() == int(selected_diners[0]):
                                 error_list.append(
                                     _('The diner {0} cannot donate by self.').format(person['name']))
             if error_list:
